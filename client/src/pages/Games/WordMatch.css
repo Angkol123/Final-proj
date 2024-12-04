@@ -1,0 +1,71 @@
+/* Drop animation for the dog-bird image */
+@keyframes drop {
+    from {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-drop {
+    animation: drop 1s ease-in-out;
+  }
+  
+  /* Slide-right animation for the pd image */
+  @keyframes slideRight {
+    from {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-slide-right {
+    animation: slideRight 1s ease-in-out;
+  }
+  
+  /* Slide-left animation for the matching image */
+  @keyframes slideLeft {
+    from {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-slide-left {
+    animation: slideLeft 1s ease-in-out;
+  }
+  
+  .pointer-icon {
+    position: absolute;
+    top: 20px;
+    right: 25vh;
+    font-size: 2rem;
+    color: #F4DAB5;
+    animation: bounce 1s infinite;
+  }
+  
+  /* Button pulse animation */
+  .animate-pulse {
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  

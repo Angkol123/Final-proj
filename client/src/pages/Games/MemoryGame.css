@@ -1,0 +1,129 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Fun font for kids */
+}
+
+button {
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Adds shadow to the title */
+}
+
+.grid {
+    padding: 20px;
+}
+@keyframes fill {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+  
+  .animate-fill {
+    animation: fill 3s linear forwards;
+  }
+  @keyframes slideInLeft {
+    from {
+        transform: translateX(-300%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(300%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(1);
+        opacity: 1;
+    }
+}
+
+.animate-slideInLeft {
+    animation-name: slideInLeft;
+}
+
+.animate-slideInRight {
+    animation-name: slideInRight;
+}
+@keyframes bend {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(15deg); /* Slight bend to the right */
+    }
+    50% {
+      transform: rotate(0deg); /* Back to the center */
+    }
+    75% {
+      transform: rotate(-15deg); /* Slight bend to the left */
+    }
+    100% {
+      transform: rotate(0deg); /* Back to the center */
+    }
+  }
+  
+  .bending-letter {
+    display: inline-block;
+    animation: bend 0.6s ease-in-out infinite; /* 0.6s for a smooth bend */
+  }
+
+  /* Add these in your CSS file */
+@keyframes fromTop {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Apply the animations to the buttons */
+  .animate-from-top {
+    animation: fromTop 0.6s ease-out forwards;
+  }
+  
+  .animate-from-right {
+    animation: fromRight 0.6s ease-out forwards;
+  }
+  
+  .animate-from-left {
+    animation: fromLeft 0.6s ease-out forwards;
+  }
+
+  
+
+  

@@ -1,0 +1,28 @@
+@keyframes dropdown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes bounceTwice {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    20% {
+      transform: translateY(-20px);
+    }
+    40% {
+      transform: translateY(10px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+    80% {
+      transform: translateY(5px);
+    }
+  }
