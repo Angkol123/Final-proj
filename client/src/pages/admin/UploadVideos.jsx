@@ -26,7 +26,7 @@ function UploadVideos() {
 
   const fetchVideos = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/video");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/video`);
       setVideos(response.data);
     } catch (error) {
       console.error("Error fetching videos:", error);
@@ -46,7 +46,7 @@ function UploadVideos() {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/video/upload", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/video/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       
@@ -77,7 +77,7 @@ function UploadVideos() {
 
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:3000/video/${videoToDelete.id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/video/${videoToDelete.id}`);
       setLoading(false);
       toast.success("Video deleted successfully", {
         className: "error-success",
@@ -104,7 +104,7 @@ function UploadVideos() {
   const handleSaveEdit = async (id) => {
     try {
       setLoading(true);
-      await axios.put(`http://localhost:3000/video/${id}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/video/${id}`, {
         name: editName,
         description: editDescription,
       });

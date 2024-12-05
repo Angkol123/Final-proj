@@ -18,6 +18,7 @@ import AnimalGame from './pages/Games/AnimalGames';
 import PrivateRoute from "./components/PrivateRoute"; // Import the private route component
 import FAQs from './pages/general/FAQs';
 import ForgotPassword from './pages/general/ForgotPassword';
+import OurTeam from './pages/general/OurTeam';
 
 // Lazy load the pages
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'));
@@ -76,6 +77,7 @@ const AppRoutes = () => {
       <Route path="/GamesSection" element={<GeneralLayout><GameSect /></GeneralLayout>} />
       <Route path="/Faqs" element={<GeneralLayout><FAQs /></GeneralLayout>}/>
       <Route path="/forgot-password" element={<GeneralLayout><ForgotPassword /></GeneralLayout>}/>
+      <Route path="/ourteam" element={<GeneralLayout><OurTeam /></GeneralLayout>}/>
 
       {/* Admin Pages - Protected Routes */}
       <Route path="/admin" element={<Navigate to="/admin/dashboard" />} /> {/* Default to dashboard */}

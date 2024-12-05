@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import lock from "../../images/LogIn/locky.png"
+import arow from "../../images/games/arow.png"
 
 const ForgotPassword = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [otp, setOtp] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -13,7 +16,7 @@ const ForgotPassword = () => {
     const handleSendOTP = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:3000/auth/forgot-password", { email });
+            await axios.post(`${process.env.REACT_APP_API_URL}/auth/forgot-password`, { email });
             toast.success("OTP sent to your email!");
             setStep(2);
         } catch (error) {
@@ -24,7 +27,7 @@ const ForgotPassword = () => {
     const handleResetPassword = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:3000/auth/reset-password", {
+            await axios.post(`${process.env.REACT_APP_API_URL}/auth/reset-password`, {
                 email,
                 otp,
                 newPassword,
@@ -39,6 +42,12 @@ const ForgotPassword = () => {
 
     return (
         <div className="min-h-[91vh] flex items-center justify-center bg-[#F0BC78] px-4 sm:px-6 lg:px-8 font-['Poppins']">
+            <img
+                src={arow}
+                alt="Back to Login"
+                onClick={() => navigate('/login')}
+                className="absolute left-0 top-14 cursor-pointer w-40 h-30 z-20"
+            />
             <div className="max-w-md w-full space-y-8 bg-[#FDDDB1] rounded-3xl p-10">
                 <div className="text-center flex flex-col items-center justify-center">
                     <img src={lock} alt="lock" className="w-[25%] h-[10vh] bg-[#FFD195] rounded-full p-3" />

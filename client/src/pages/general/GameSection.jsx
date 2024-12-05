@@ -45,7 +45,7 @@ const GameSection = () => {
 
   const fetchVideos = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/video');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/video`);
       setVideos(response.data);
     } catch (error) {
       console.error('Error fetching videos:', error);

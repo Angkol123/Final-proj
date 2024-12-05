@@ -78,7 +78,8 @@ const Register = () => {
       return;
     }
 
-    const url = 'http://localhost:3000/auth/register';
+    const url = `${process.env.REACT_APP_API_URL}/auth/register`;
+
     const data = { 
       name: formData.name,
       email: formData.email,
@@ -116,7 +117,8 @@ const Register = () => {
         <img
           src={img13}
           alt="Curve"
-          className="absolute top-0 left-0 md:h-[74vh] w-full md:w-[63vh] opacity-70 z-0"
+          className="absolute top-0 left-0 h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[74vh] w-full sm:w-[50vw] md:w-[63vh] lg:w-[70vh] opacity-70 z-0"
+
         />
 
         {/* Left Section */}

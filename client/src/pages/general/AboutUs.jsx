@@ -14,6 +14,13 @@ import play from '../../images/img3.jpg';
 import teachi from '../../images/teacher/teach.png';
 import { useNavigate } from 'react-router-dom';
 
+import joyce from '../../images/teacher/teacher joyce.png';
+import kath from '../../images/teacher/teacher kath.png';
+import mae from '../../images/teacher/teacher mae.png';
+import reim from '../../images/teacher/teacher reim.png';
+import yel from '../../images/teacher/teacher yel.png';
+import zette from '../../images/teacher/teacher zette.png';
+
 const AboutUs = () => {
   const navigate = useNavigate();
 
@@ -123,23 +130,34 @@ const AboutUs = () => {
               Experienced and passionate educators who are committed to guiding and inspiring your child through their educational journey.
             </p>
             
-            <div className="w-full overflow-x-auto">
+            <div className="w-full ml-[-21.5%]">
               <div className="flex justify-start gap-6 min-w-max px-4">
-                {[1, 2, 3, 4, 5, 6].map((_, index) => (
+                {[
+                  { img: joyce, name: "Ms. Joyce", role: "English Teacher" },
+                  { img: kath, name: "Ms. Kath", role: "Math Teacher" },
+                  { img: mae, name: "Ms. Mae", role: "Science Teacher" },
+                  { img: reim, name: "Ms. Reim", role: "English Teacher" },
+                  { img: yel, name: "Ms. Yel", role: "Reading Teacher" },
+                  { img: zette, name: "Ms. Zette", role: "Writing Teacher" }
+                ].map((teacher, index) => (
                   <div 
                     key={index} 
-                    className="flex flex-col items-center p-4 rounded-lg transition-transform duration-300 transform hover:scale-95" // Added transition and scale effect
-                    style={{ border: '2px solid #EB9721' }}
+                    className="flex flex-col items-center p-6 rounded-lg transition-transform duration-300 transform hover:scale-95 bg-white bg-opacity-60"
+                    style={{ 
+                      border: '2px solid #EB9721',
+                      width: '250px',
+                      height: '300px'
+                    }}
                   >
-                    <div className="w-32 h-38 rounded-full overflow-hidden border-4 border-white mb-6">
+                    <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white mb-6">
                       <img 
-                        src={teachi} 
-                        alt="Teacher" 
+                        src={teacher.img} 
+                        alt={teacher.name} 
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <h3 className="font-semibold text-sm">Ms. Reim Mizar</h3>
-                    <p className="text-xs">English Teacher</p>
+                    <h3 className="font-semibold text-lg mb-2">{teacher.name}</h3>
+                    <p className="text-base text-gray-600">{teacher.role}</p>
                   </div>
                 ))}
               </div>
@@ -177,7 +195,7 @@ const AboutUs = () => {
                 }}
               >
                 <h1 className="font-bold " style={{ fontSize: '20px' }}>Parental Involvement</h1>
-                <p className="text-left mt-[4vh] text-center" style={{ fontSize: '20px' }}>
+                <p className=" mt-[4vh] text-center" style={{ fontSize: '20px' }}>
                   We believe in collaborating with parents to create a holistic learning experience, ensuring alignment between home and school learning.
                 </p>
               </div>

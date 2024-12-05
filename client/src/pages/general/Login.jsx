@@ -18,7 +18,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const url = "http://localhost:3000/auth/login";
+    const url = `${process.env.REACT_APP_API_URL}/auth/login`;
     const data = { email, password };
 
     try {

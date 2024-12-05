@@ -15,7 +15,7 @@ const User = () => {
   const fetchStudents = async () => {
     try {
       // Replace this with your actual API URL
-      const response = await axios.get('http://localhost:3000/auth/users');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users`);
       setStudents(response.data); // Set the fetched data to the students state
       setUserData(response.data); // Initially, display all users
     } catch (error) {
@@ -50,7 +50,7 @@ const User = () => {
 
   const handleDeleteConfirm = async () => {
     try {
-      await axios.delete(`http://localhost:3000/auth/users/${userToDelete.id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/auth/users/${userToDelete.id}`);
       toast.success('User deleted successfully');
       fetchStudents(); // Refresh the list
       setIsDeleteModalOpen(false);

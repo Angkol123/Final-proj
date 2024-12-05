@@ -13,40 +13,57 @@ import Confetti from 'react-confetti';
 //background music
 import background from "../../Audio/gameloop.mp3";
 
+import cat from "../../images/Images/cat.jpg";
+import dog from "../../images/Images/dog.jpg";
+import apple from "../../images/Images/apple.jpg";
+import banana from "../../images/Images/banana.jpg";
+import fish from "../../images/Images/fish.jpg";
+import frog from "../../images/Images/frog.jpg";
+import car from "../../images/Images/car.jpg";
+import bird from "../../images/Images/bird.jpg";
+import flower from "../../images/Images/flower.jpg";
+import tree from "../../images/Images/tree.jpg";
+import sun from "../../images/Images/sun.jpg";
+import moon from "../../images/Images/moon.jpg";
+import bear from "../../images/Images/bear.jpg";
+import elephant from "../../images/Images/elephant.jpg";
+import giraffe from "../../images/Images/giraffe.jpg";
+// import horse from "../../images/Images/horse.png";
+
 
 
 
 const wordsAndImages = [
-  { word: "Cat", image: "https://img.icons8.com/color/96/000000/cat.png" },
-  { word: "Dog", image: "https://img.icons8.com/color/96/000000/dog.png" },
-  { word: "Apple", image: "https://img.icons8.com/color/96/000000/apple.png" },
+  { word: "Cat", image: cat },
+  { word: "Dog", image: dog },
+  { word: "Apple", image: apple },
   {
     word: "Banana",
-    image: "https://img.icons8.com/color/96/000000/banana.png",
+    image: banana,
   },
-  { word: "Fish", image: "https://img.icons8.com/color/96/000000/fish.png" },
-  { word: "Frog", image: "https://img.icons8.com/color/96/000000/frog.png" },
-  { word: "Car", image: "https://img.icons8.com/color/96/000000/car.png" },
-  { word: "Bird", image: "https://img.icons8.com/color/96/000000/bird.png" },
+  { word: "Fish", image: fish },
+  { word: "Frog", image: frog },
+  { word: "Car", image: car },
+  { word: "Bird", image: bird },
   {
     word: "Flower",
-    image: "https://img.icons8.com/color/96/000000/flower.png",
+    image: flower,
   },
   {
     word: "Tree",
     image:
-      "https://img.freepik.com/free-vector/cute-cartoon-tree-character_1308-19968.jpg",
+      tree,
   },
-  { word: "Sun", image: "https://img.icons8.com/color/96/000000/sun.png" },
-  { word: "Moon", image: "https://img.icons8.com/color/96/000000/moon.png" },
-  { word: "Bear", image: "https://img.icons8.com/color/96/000000/bear.png" },
+  { word: "Sun", image: sun },
+  { word: "Moon", image: moon },
+  { word: "Bear", image: bear },
   {
     word: "Elephant",
-    image: "https://img.icons8.com/color/96/000000/elephant.png",
+    image: elephant,
   },
   {
     word: "Giraffe",
-    image: "https://img.icons8.com/color/96/000000/giraffe.png",
+    image: giraffe,
   },
 ];
 
@@ -256,7 +273,7 @@ const WordMatch = () => {
 
       console.log('Sending game data:', gameData);
 
-      const response = await fetch('http://localhost:3000/games', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/games`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -276,7 +293,7 @@ const WordMatch = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-yellow-200 to-blue-300">
+    <div className="flex flex-col items-center justify-center h-screen bg-[#F0BC78]">
       {showConfetti && <Confetti 
         width={window.innerWidth}
         height={window.innerHeight}
@@ -300,6 +317,13 @@ const WordMatch = () => {
         </div>
       ) : !gameStarted ? (
         <div className="flex flex-col items-center justify-center h-screen">
+          <img
+            src={arow}
+            alt="arrowback"
+            onClick={() => navigate('/GamesSection')}
+            className="absolute left-0 top-4 cursor-pointer w-40 h-30 z-20"
+          />
+          
           <img
             src={bg}
             alt="background"
@@ -378,9 +402,9 @@ const WordMatch = () => {
             {/* Word Match Game */}
           </h1>
           <div className="mb-4">
-            <div className="timer-bar w-1/3 mx-auto bg-gray-200 rounded-full h-6 mb-4 border border-[#EE910E] relative">
+            <div className="timer-bar w-[50vw] mx-auto bg-gray-200 rounded-full ml-[-12vw] h-6 mb-4 border border-[#EE910E] relative">
               <div
-                className="bg-gradient-to-r from-green-400 to-blue-500 w-[50] h-full rounded-full transition-all duration-1000 flex items-center justify-center"
+                className="bg-[#F0BC78] w-[90vw] h-full rounded-full transition-all duration-1000 flex items-center justify-center"
                 style={{
                   width: `${(timer / 10) * 100}%`,
                 }}

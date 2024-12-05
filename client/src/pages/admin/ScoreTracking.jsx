@@ -15,7 +15,7 @@ const ScoreTracking = () => {
   useEffect(() => {
     const fetchScoreData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/games"); // Replace with your API endpoint
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/games`); // Replace with your API endpoint
         const data = await response.json();
 
         const uniqueTournaments = [...new Set(data.map((item) => item.gameName))];

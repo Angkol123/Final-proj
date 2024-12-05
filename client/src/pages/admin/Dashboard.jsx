@@ -37,7 +37,7 @@ function Dashboard() {
 
   const fetchVideoActivities = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/video/activities');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/video/activities`);
       console.log('Fetched activities:', response.data); // Debug log
       setVideoActivities(response.data);
       setError(null);
@@ -49,7 +49,7 @@ function Dashboard() {
 
   const fetchUserCount = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/auth/user-count');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/user-count`);
       setUserCount(response.data.totalUsers);
     } catch (error) {
       console.error('Error fetching user count:', error);

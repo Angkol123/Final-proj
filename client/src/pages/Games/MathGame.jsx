@@ -157,7 +157,7 @@ const MathGame = () => {
 
       console.log('Sending game data:', gameData);
 
-      const response = await axios.post('http://localhost:3000/games', gameData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/games`, gameData);
       console.log('Game results posted successfully:', response.data);
       
     } catch (error) {

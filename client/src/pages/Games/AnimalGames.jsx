@@ -99,7 +99,7 @@ const AnimalGame = () => {
   const difficultyLevels = {
     easy: { questions: 5, time: 30 },
     normal: { questions: 10, time: 20 },
-    hard: { questions: 15, time: 15 },
+    hard: { questions: 15, time: 10 },
   };
 
 
@@ -229,7 +229,7 @@ const AnimalGame = () => {
         missedScore: missedScore // Add missed score to the request
       };
 
-      const response = await fetch('http://localhost:3000/games', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/games`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -415,7 +415,7 @@ const AnimalGame = () => {
                     />
                     <button
                       type="submit"
-                      className="bg-[#FFC87A] text-white text-xl py-3 px-12 rounded-full hover:scale-105 transform transition-all duration-200 shadow-lg"
+                      className="bg-[#FFC87A] text-[#7E4F0E] text-xl py-3 px-12 rounded-full hover:scale-105 transform transition-all duration-200 shadow-lg"
                     >
                       Check Answer! 🎯
                     </button>
@@ -497,7 +497,7 @@ const AnimalGame = () => {
                     handleBackButtonClick();  // Call the back button handler
                     window.location.reload();  // Reload the page after calling handleBackButtonClick
                   }}
-                  className="bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xl py-3 px-8 rounded-full hover:scale-105 transform transition-all duration-200 shadow-lg"
+                  className="bg-[#F9AF47] text-[#AE6F17] text-xl py-3 px-8 rounded-full hover:scale-105 transform transition-all duration-200 shadow-lg"
                 >
                   Play Again! 🎮
                 </button>

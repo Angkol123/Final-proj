@@ -195,18 +195,25 @@ const MemoryGame = () => {
   const startGame = (level, levelName) => {
     setIsGameActive(true);
     setSelectedLevel(levelName);
-    resetGame();
-    generateCards(level);
+    setShowLevelSelection(false); // Hide level selection
     setDifficulty(levelName);
-
+    setShowStats(true);
+    
+    // Reset game state
+    setCards([]);
+    setFlippedCards([]);
+    setMatchedCards([]);
+    setFlipCount(0);
+    setGameOver(false);
+    setShowConfetti(false);
+    
+    // Generate new cards
+    generateCards(level);
+    
+    // Set time limit based on level
     const timeMapping = { easy: 40, normal: 30, hard: 20 };
     setTimeLimit(timeMapping[levelName]);
-    setTimer(timeMapping[levelName]); // Start timer based on level
-    console.log("timeMapping:", timeMapping);
-    console.log("timeMapping1", timeMapping[levelName]);
-
-    setShowStats(true);
-    setShowLevelSelection(false);
+    setTimer(timeMapping[levelName]);
     
     // Start background music
     backgroundMusic.play();
@@ -407,7 +414,7 @@ const MemoryGame = () => {
           missedScore: flipCount.toString()
         };
 
-        const response = await fetch('http://localhost:3000/games', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/games`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -455,7 +462,14 @@ const MemoryGame = () => {
           />
         </div>
       ) : !gameStarted ? (
-        <div className=" text-center mt-[-15vh]">
+        <div className="text-center mt-[-15vh]">
+          <img
+            src={arow}
+            alt="arrowback"
+            onClick={() => navigate('/GamesSection')}
+            className="absolute left-0 top-4 cursor-pointer w-40 h-30 z-20"
+          />
+          
           <img
             src={img4}
             alt="Background"
@@ -465,7 +479,7 @@ const MemoryGame = () => {
             <img
               src={img5}
               alt="memory"
-              className="relative lg:mt-[6rem] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl animate-slideInLeft "
+              className="relative lg:mt-[6rem] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl animate-slideInLeft"
               style={{
                 animationDuration: "1.5s",
                 animationTimingFunction: "ease-in-out",
@@ -477,7 +491,7 @@ const MemoryGame = () => {
             <img
               src={img6}
               alt="match"
-              className=" lg:w-full sm:ml-10 md:ml-16 lg:ml-20 z-10 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl animate-slideInRight "
+              className=" lg:w-full sm:ml-10 md:ml-16 lg:ml-20 z-10 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl animate-slideInRight"
               style={{
                 animationDuration: "1.5s",
                 animationTimingFunction: "ease-in-out",
@@ -489,7 +503,7 @@ const MemoryGame = () => {
             <img
               src={img7}
               alt="letters"
-              className="w-full h-auto mt-[-2rem]  max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl "
+              className="w-full h-auto mt-[-2rem]  max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
               style={{ filter: "brightness(100%)" }}
             />
           </div>
@@ -596,7 +610,7 @@ const MemoryGame = () => {
           <div className="mb-4 flex items-center justify-center flex-col gap-9 md:w-full">
             {Object.keys(difficultyLevels).map(
               (level, index) =>
-                (!selectedLevel || selectedLevel === level) && (
+                (showLevelSelection || selectedLevel === level) && (
                   <button
                     key={level}
                     onClick={() => startGame(difficultyLevels[level], level)}
@@ -660,7 +674,7 @@ const MemoryGame = () => {
                   </span>
                 </h2>
 
-                {/* Mission Box */}
+                {/* Mission Box and Button */}
                 <div className="bg-[#F3E2C5] border border-[#A56922] rounded-md p-4 mb-4">
                   <p className="text-[#5C4A30] font-semibold">Mission:</p>
                   <p
@@ -685,19 +699,13 @@ const MemoryGame = () => {
                   </div>
                 </div>
 
-                {/* Next, Exit, and Retry Buttons */}
-                <div className="flex justify-center space-x-4">
+                {/* Exit Button Only */}
+                <div className="flex justify-center">
                   <button
                     onClick={handleBackNavigation}
                     className="px-6 py-2 text-white bg-[#F2B053] rounded-full hover:bg-[#E1A443] shadow-lg"
                   >
                     Exit
-                  </button>
-                  <button
-                    onClick={resetGame}
-                    className="px-6 py-2 text-white bg-[#F2B053] rounded-full hover:bg-[#E1A443] shadow-lg"
-                  >
-                    Retry
                   </button>
                 </div>
               </div>
