@@ -8,7 +8,7 @@ async function bootstrap() {
 
   //Configure CORS
   app.enableCors({
-    origin: ['http://localhost:3001' , 'https://earlylearnershub.vercel.app/'],
+    origin: process.env.FRONTEND_URL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true,
