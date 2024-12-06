@@ -65,7 +65,7 @@ const OurTeam = () => {
               },
               { 
                 img: cha, 
-                name: "Ma. Charity Pediri", 
+                name: "Ma. Charity Pidere", 
                 role: "UI/UX Designer" 
               }
             ].map((member, index) => (

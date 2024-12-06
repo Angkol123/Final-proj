@@ -133,12 +133,12 @@ const AboutUs = () => {
             <div className="w-full ml-[-21.5%]">
               <div className="flex justify-start gap-6 min-w-max px-4">
                 {[
-                  { img: joyce, name: "Ms. Joyce", role: "English Teacher" },
-                  { img: kath, name: "Ms. Kath", role: "Math Teacher" },
-                  { img: mae, name: "Ms. Mae", role: "Science Teacher" },
-                  { img: reim, name: "Ms. Reim", role: "English Teacher" },
-                  { img: yel, name: "Ms. Yel", role: "Reading Teacher" },
-                  { img: zette, name: "Ms. Zette", role: "Writing Teacher" }
+                  { img: joyce, name: "Ms. Joyce" },
+                  { img: kath, name: "Ms. Kath" },
+                  { img: mae, name: "Ms. Mae" },
+                  { img: reim, name: "Ms. Reim" },
+                  { img: yel, name: "Ms. Yel" },
+                  { img: zette, name: "Ms. Zette" }
                 ].map((teacher, index) => (
                   <div 
                     key={index} 
@@ -177,24 +177,24 @@ const AboutUs = () => {
             <div className="w-full flex flex-col md:flex-row gap-16 pl-[10vh] ">
               <div 
      
-                className="  w-[50%] h-[52vh] bg-white bg-opacity-60 rounded-lg p-5 transition-transform duration-300 " // Background opacity set to 80%
+                className="  w-[50%] h-[42vh] bg-white bg-opacity-60 rounded-lg p-5 transition-transform duration-300 " // Background opacity set to 80%
                 style={{ 
                   border: '2px solid #EB9721'
                           //  <img src='' alt= "" />
                 }}
               >
-                <h1 className="font-bold" style={{ fontSize: '22px'}}>Flexible Tutoring Options</h1>
+                <h2 className="font-bold" style={{ fontSize: '22px'}}>Flexible Tutoring Options</h2>
                 <p className="text-left mt-[4vh]" style={{ fontSize: '22px'}}>
                   Whether you prefer <span className="font-bold">one-on-one</span> sessions or <span className="font-bold">group</span> classes, we offer flexible options to suit your child’s needs and your schedule.
                 </p>
               </div>
               <div 
-                className=" w-[50%] h-[52vh] bg-white bg-opacity-60 rounded-lg p-5 transition-transform duration-300 " // Background opacity set to 80%
+                className=" w-[50%] h-[42vh] bg-white bg-opacity-60 rounded-lg p-5 transition-transform duration-300 " // Background opacity set to 80%
                 style={{ 
                   border: '2px solid #EB9721'
                 }}
               >
-                <h1 className="font-bold " style={{ fontSize: '20px' }}>Parental Involvement</h1>
+                <h2 className="font-bold " style={{ fontSize: '20px' }}>Parental Involvement</h2>
                 <p className=" mt-[4vh] text-center" style={{ fontSize: '20px' }}>
                   We believe in collaborating with parents to create a holistic learning experience, ensuring alignment between home and school learning.
                 </p>

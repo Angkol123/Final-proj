@@ -142,7 +142,7 @@ const GameSect = () => {
             {filteredGames().map((game, index) => (
               <div
                 key={index}
-                className="bg-[#F3CA79] rounded-lg shadow-lg p-5"
+                className="bg-[#F0BC78] rounded-lg shadow-lg p-5"
               >
                 <img
                   src={game.image}

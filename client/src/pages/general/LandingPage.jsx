@@ -9,7 +9,7 @@ import img10 from "../../images/ey.png";
 import img17 from "../../images/light.png";
 import img18 from "../../images/gem.png";
 import Footer from "../../components/Footer";
-import mainImg from "../../images/landingimg.png";
+import mainImg from "../../images/teacher/hub.jpg";
 import lets from "../../images/lets.png";
 
 const LandingPage = () => {
@@ -40,7 +40,7 @@ const LandingPage = () => {
             <img
               src={mainImg}
               alt="Main"
-              className="h-[20vh] lg:h-[50vh] max-h-[50vh] object-contain w-full lg:w-[300%] transform lg:ml-[1rem]"
+              className="h-[20vh] mt-3 mr-5 lg:h-[50vh] max-h-[50vh] object-cover w-full lg:w-[300%] transform rounded-3xl"
             />
           </div>
         </div>

@@ -14,10 +14,14 @@ const User = () => {
   // Move fetchStudents before useEffect
   const fetchStudents = async () => {
     try {
-      // Replace this with your actual API URL
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users`);
-      setStudents(response.data); // Set the fetched data to the students state
-      setUserData(response.data); // Initially, display all users
+      const usersWithId = response.data.map(user => ({
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }));
+      setStudents(usersWithId);
+      setUserData(usersWithId);
     } catch (error) {
       console.error("Error fetching students:", error);
       toast.error("Failed to fetch users");
@@ -63,7 +67,7 @@ const User = () => {
 
   return (
     <div className="p-8 bg-[#FAF3EB] h-[93vh] overflow-auto">
-      <h1 className="text-3xl font-bold text-[#F47C21] mb-8">List of Users</h1>
+      <h2 className="text-3xl font-bold text-[#F47C21] mb-8">List of Users</h2>
 
       {/* Search Box */}
       <div className="flex justify-end mb-6">
@@ -75,11 +79,11 @@ const User = () => {
             onChange={handleSearch} // Update the search query as user types
             className="w-full p-3 border border-gray-300 rounded bg-[#FBF7F0] focus:outline-none focus:ring-2 focus:ring-yellow-500 text-gray-700"
           />
-          <img
+          {/* <img
             src={dropdownIcon}
             alt="Dropdown Icon"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
-          />
+          /> */}
         </div>
       </div>
 

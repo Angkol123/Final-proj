@@ -51,37 +51,37 @@ const Services = () => {
         <div className='grid grid-cols-3 grid-rows-2 gap-9 p-5'>
           <div className='h-[25vh]'>
             <p className='font-bold'>Personalized Learning Approach</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg'>
               <p className='text-center'>We customize our teaching methods to match each child's unique learning style and pace, ensuring they receive the attention and support they need.</p>
             </div>
           </div>
           <div>
             <p className='font-bold'>Interactive and Engaging Sessions</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg flex items-center'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg flex items-center'>
               <p className='text-center'>Our team consists of experienced and passionate educators who are committed to guiding and inspiring your child through their educational journey.</p>
             </div>
           </div>
           <div>
             <p className='font-bold'>Comprehensive Programs</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg flex items-center'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg flex items-center'>
               <p className='text-center'>From early reading programs to writing fundamentals, we offer a range of comprehensive courses to build essential skills in young learners.</p>
             </div>
           </div>
           <div>
             <p className='font-bold'>Flexible Tutoring Options</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg flex items-center'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg flex items-center'>
               <p className='text-center'>Whether you prefer one-on-one sessions or group classes, we offer flexible options to suit your child’s needs and your schedule.</p>
             </div>
           </div>
           <div>
             <p className='font-bold'>Focus on Confidence Building</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg flex items-center'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg flex items-center'>
               <p className='text-center'>Our supportive environment encourages children to build self-confidence, empowering them to take on new challenges with enthusiasm.</p>
             </div>
           </div>
           <div>
             <p className='font-bold'>Expert Educators</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg flex items-center'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg flex items-center'>
               <p className='text-center'>Our team consists of experienced and passionate educators who are committed to guiding and inspiring your child through their educational journey.</p>
             </div>
           </div>
@@ -89,13 +89,13 @@ const Services = () => {
         <div className='w-full h-[25vh] flex gap-9 px-[30vh] justify-center'>
           <div className='w-[50%]'>
             <p className='font-bold'>Holistic Development</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg flex items-center'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg flex items-center'>
               <p className='text-center'>We promote social skills development, problem-solving abilities, and critical thinking, ensuring well-rounded growth for every child.</p>
             </div>
           </div>
           <div className='w-[50%]'>
             <p className='font-bold'>Parental Involvement</p>
-            <div className='bg-[#EDC285] p-9 h-[80%] mt-5 rounded-lg flex items-center'>
+            <div className='bg-white border-[#EB9721] border p-9 h-[80%] mt-5 rounded-lg flex items-center'>
               <p className='text-center'>We believe in collaborating with parents to create a holistic learning experience, ensuring alignment between home and school learning.</p>
             </div>
           </div>

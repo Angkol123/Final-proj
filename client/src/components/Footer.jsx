@@ -26,7 +26,7 @@ const Footer = () => {
           <p className='font-bold text-center lg:text-left text-lg lg:text-xl'>About E-Learners</p>
           <div className='flex flex-col gap-3 items-center lg:items-start mt-3'>
             <Link to="/OurTeam" className='text-sm lg:text-base'>Our Team</Link> 
-            <p className='text-sm lg:text-base'>About Us</p > 
+            <Link to="/about" className='text-sm lg:text-base'>About Us</Link > 
             <Link to="/Faqs" className='text-sm lg:text-base'>FAQ's</Link>
           </div>
         </div>

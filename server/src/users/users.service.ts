@@ -21,9 +21,9 @@ export class UsersService {
         return this.userRepository.findOne({ where: { email } });
     }
 
-    async getAllUsers(): Promise<Pick<User, 'name' | 'email'>[]> {
+    async getAllUsers(): Promise<Pick<User, 'id' | 'name' | 'email'>[]> {
         return this.userRepository.find({
-            select: ['name', 'email']
+            select: ['id', 'name', 'email']
         });
     }
 
