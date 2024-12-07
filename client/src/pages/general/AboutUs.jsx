@@ -53,9 +53,9 @@ const AboutUs = () => {
         <div className="w-full h-auto flex flex-col gap-14">
           <div className="flex justify-center w-full">
             <div className="max-w-full md:max-w-7xl">
-              <h1 className="text-black poppins text-[28px] font-semi-bold text-left">
+              <h2 className="text-black poppins text-[28px] font-semi-bold text-left">
                 Welcome to EarlyLearners Hub Tutorial Services, where learning meets excellence!
-              </h1>
+              </h2>
             </div>
           </div>
 
@@ -130,7 +130,7 @@ const AboutUs = () => {
               Experienced and passionate educators who are committed to guiding and inspiring your child through their educational journey.
             </p>
             
-            <div className="w-full ml-[-21.5%]">
+            <div className="w-full ml-[-8%]">
               <div className="flex justify-start gap-6 min-w-max px-4">
                 {[
                   { img: joyce, name: "Ms. Joyce" },
@@ -145,11 +145,11 @@ const AboutUs = () => {
                     className="flex flex-col items-center p-6 rounded-lg transition-transform duration-300 transform hover:scale-95 bg-white bg-opacity-60"
                     style={{ 
                       border: '2px solid #EB9721',
-                      width: '250px',
+                      width: '200px',
                       height: '300px'
                     }}
                   >
-                    <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white mb-6">
+                    <div className="w-30 h-40 rounded-full overflow-hidden border-4 border-white mb-6">
                       <img 
                         src={teacher.img} 
                         alt={teacher.name} 
@@ -173,7 +173,7 @@ const AboutUs = () => {
         {/* Services Offered Section */}
         <div className="w-full h-auto p-8 flex flex-col md:flex-row gap-5 ">
           <div className="w-full md:w-[100%] h-auto flex flex-col gap-16">
-            <h1 className="text-4xl font-bold mb-6 text-center text-[#181C14]">Services Offered</h1>
+            <h2 className="text-4xl font-bold mb-6 text-center text-[#181C14]">Services Offered</h2>
             <div className="w-full flex flex-col md:flex-row gap-16 pl-[10vh] ">
               <div 
      

@@ -40,6 +40,7 @@ const MathGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [animate, setAnimate] = useState(false);
   const [missedScore, setMissedScore] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   //getting the player name from local storage and the game name
   const playerName = localStorage.getItem("playerName");
@@ -67,44 +68,49 @@ const MathGame = () => {
   };
 
 
-  const generateQuestion = (cat, diff) => {
-    let num1, num2;
-    if (diff === "easy") {
-      num1 = Math.floor(Math.random() * 5);
-      num2 = Math.floor(Math.random() * 5);
-    } else if (diff === "normal") {
-      num1 = Math.floor(Math.random() * 10);
-      num2 = Math.floor(Math.random() * 10);
-    } else {
-      num1 = Math.floor(Math.random() * 20);
-      num2 = Math.floor(Math.random() * 20);
+  const generateQuestion = React.useCallback((cat, diff) => {
+    try {
+      let num1, num2;
+      if (diff === "easy") {
+        num1 = Math.floor(Math.random() * 5);
+        num2 = Math.floor(Math.random() * 5);
+      } else if (diff === "normal") {
+        num1 = Math.floor(Math.random() * 10);
+        num2 = Math.floor(Math.random() * 10);
+      } else {
+        num1 = Math.floor(Math.random() * 20);
+        num2 = Math.floor(Math.random() * 20);
+      }
+
+
+      let questionText, correctAnswer;
+
+
+      switch (cat) {
+        case "addition":
+          questionText = `${num1} + ${num2}`;
+          correctAnswer = num1 + num2;
+          break;
+        case "subtraction":
+          questionText = `${num1} - ${num2}`;
+          correctAnswer = num1 - num2;
+          break;
+        case "multiplication":
+          questionText = `${num1} × ${num2}`;
+          correctAnswer = num1 * num2;
+          break;
+        default:
+          return null;
+      }
+
+
+      const options = generateOptions(correctAnswer, Level);
+      return { questionText, correctAnswer, options };
+    } catch (error) {
+      console.error('Error generating question:', error);
+      return null;
     }
-
-
-    let questionText, correctAnswer;
-
-
-    switch (cat) {
-      case "addition":
-        questionText = `${num1} + ${num2}`;
-        correctAnswer = num1 + num2;
-        break;
-      case "subtraction":
-        questionText = `${num1} - ${num2}`;
-        correctAnswer = num1 - num2;
-        break;
-      case "multiplication":
-        questionText = `${num1} × ${num2}`;
-        correctAnswer = num1 * num2;
-        break;
-      default:
-        return null;
-    }
-
-
-    const options = generateOptions(correctAnswer, Level);
-    return { questionText, correctAnswer, options };
-  };
+  }, [Level]);
 
 
   const generateOptions = (correctAnswer, difficulty) => {
@@ -139,9 +145,22 @@ const MathGame = () => {
 
 
   const handleDifficultySelect = (diff) => {
-    setLevel(diff);
-    setQuestion(generateQuestion(category, diff));
-    setQuestionsCount(0);
+    try {
+      setIsLoading(true);
+      setLevel(diff);
+      const newQuestion = generateQuestion(category, diff);
+      if (newQuestion) {
+        setQuestion(newQuestion);
+        setQuestionsCount(0);
+      } else {
+        toast.error('Error generating question. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error selecting difficulty:', error);
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
 
@@ -176,40 +195,40 @@ const MathGame = () => {
   };
 
 
-  const handleAnswer = (selectedAnswer) => {
-    setAnswered(true);
-    if (selectedAnswer === question.correctAnswer) {
-      setScore(score + 1);
-      toast.success('Correct Answer! 🎉', {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: 'success-toast'
-      });
-    } else {
-      setMissedScore(missedScore + 1);
-      toast.error(`Wrong! Correct answer was ${question.correctAnswer} ❌`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: 'error-toast'
-      });
-    }
+  const handleAnswer = async (selectedAnswer) => {
+    if (isLoading || answered) return; // Prevent multiple clicks
+    
+    try {
+      setIsLoading(true);
+      setAnswered(true);
+      
+      if (selectedAnswer === question.correctAnswer) {
+        setScore(prev => prev + 1);
+        toast.success('Correct Answer! 🎉', {
+          autoClose: 1000,
+        });
+      } else {
+        setMissedScore(prev => prev + 1);
+        toast.error(`Wrong! Correct answer was ${question.correctAnswer} ❌`, {
+          autoClose: 1000,
+        });
+      }
 
-    setQuestionsCount(questionsCount + 1);
-    if (questionsCount + 1 >= questionLimit[Level]) {
-      setShowModal(true);
-      backgroundMusic.pause();
-      backgroundMusic.currentTime = 0;
-      postGameResults();
+      setQuestionsCount(prev => {
+        const newCount = prev + 1;
+        if (newCount >= questionLimit[Level]) {
+          setShowModal(true);
+          backgroundMusic.pause();
+          backgroundMusic.currentTime = 0;
+          postGameResults();
+        }
+        return newCount;
+      });
+    } catch (error) {
+      console.error('Error handling answer:', error);
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -265,6 +284,8 @@ const MathGame = () => {
   // Add cleanup for background music
   useEffect(() => {
     return () => {
+      setIsLoading(false);
+      setAnswered(false);
       backgroundMusic.pause();
       backgroundMusic.currentTime = 0;
     };
@@ -502,9 +523,12 @@ const MathGame = () => {
                     {question.options.map((option, idx) => (
                       <button
                         key={idx}
-                        className="bg-[#ED9726] text-5xl ml-[5rem] font-bold w-[50%] py-5 rounded-xl hover:bg-[#FFECD2] transition duration-200"
+                        className={`bg-[#ED9726] text-5xl ml-[5rem] font-bold w-[50%] py-5 rounded-xl 
+                          ${!isLoading && !answered ? 'hover:bg-[#FFECD2]' : ''} 
+                          transition duration-200 
+                          ${isLoading || answered ? 'opacity-70 cursor-not-allowed' : ''}`}
                         onClick={() => handleAnswer(option)}
-                        disabled={answered}
+                        disabled={isLoading || answered}
                         style={{
                           animation: animate
                             ? `dropdown 0.5s ease-out both, bounceTwice 0.8s ease-in-out 0.5s forwards`

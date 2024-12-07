@@ -24,6 +24,7 @@ import Confetti from "react-confetti"; // Import Confetti component
 import { useNavigate } from "react-router-dom";
 import jerson from "../../images/gamesimage123/cha.png";
 import { IoArrowBackCircle } from "react-icons/io5";
+import arow from "../../images/games/arow.png";
 
 // sounds
 import catsound from "../../Audio/cat.mp3";
@@ -298,12 +299,12 @@ const AnimalGame = () => {
     >
       {showIntro ? (
         <div className="intro-screen flex flex-col items-center bg-[#FFE3BE] border-[#ED9726] border-[5px] p-8 rounded-2xl shadow-xl">
-          <button
-                onClick={handleNavigateBack}
-                className="text-red-500 text-[4rem] hover:text-red-700 text-3xl font-bold absolute top-4 left-4 transition-colors duration-200 hover:scale-110"
-              >
-                <IoArrowBackCircle />
-              </button>
+          <img
+            src={arow}
+            alt="arrowback"
+            onClick={() => navigate('/GamesSection')}
+            className="absolute left-0 top-4 cursor-pointer w-40 h-30 z-20"
+          />
           <h1 className="text-5xl font-bold mb-6 text-center text-[#7E4F0E]">
             Animal Unscramble Game!
           </h1>

@@ -41,7 +41,9 @@ const ScoreTracking = () => {
 
   // Filter scores based on selected criteria
   const filteredScores = scoreData.filter((data) => {
-    const dateMatch = selectedDate ? data.playDate === selectedDate : true;
+    // Format the date from the data to match the input date format (YYYY-MM-DD)
+    const formattedGameDate = data.playDate.split('T')[0];
+    const dateMatch = selectedDate ? formattedGameDate === selectedDate : true;
     const studentMatch = selectedStudent === "All" || data.playerName === selectedStudent;
     const tournamentMatch = selectedTournament === "All" || data.gameName === selectedTournament;
     const levelMatch = selectedGameLevel === "All" || data.difficulty === selectedGameLevel;
@@ -153,9 +155,9 @@ const ScoreTracking = () => {
                   } border-t border-[#db8e30]`}
                 >
                   <td className="px-6 py-4 rounded-l-lg truncate">{data.playerName}</td>
-                  <td className="px-6 py-4 truncate">{data.playDate}</td>
+                  <td className="px-6 py-4 truncate">{data.playDate.split('T')[0]}</td>
                   <td className="px-6 py-4 truncate">{data.gameName}</td>
-                  <td className="px-6 py-4 truncate">{data.difficulty}</td> 
+                  <td className="px-6 py-4 truncate">{data.difficulty}</td>
                   <td className="px-6 py-4 truncate">{data.score}</td>
                   <td className="px-6 py-4 truncate">{data.missedScore || 0}</td>
                   <td className="px-6 py-4 rounded-r-lg truncate">{renderStars(data.score)}</td>

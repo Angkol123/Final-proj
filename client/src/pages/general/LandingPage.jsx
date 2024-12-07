@@ -9,7 +9,7 @@ import img10 from "../../images/ey.png";
 import img17 from "../../images/light.png";
 import img18 from "../../images/gem.png";
 import Footer from "../../components/Footer";
-import mainImg from "../../images/teacher/hub.jpg";
+import mainImg from "../../images/teacher/hub.png";
 import lets from "../../images/lets.png";
 
 const LandingPage = () => {
@@ -28,10 +28,10 @@ const LandingPage = () => {
               Early Learners Hub
             </h2>
             <p
-              className="text-[2rem] lg:text-[1.8rem] leading-snug font-poppins text-left mt-4"
+              className="text-[2rem] lg:text-[1.8rem] leading-snug font-poppins ml-[-3rem] text-left mt-4"
               style={{ opacity: 0.8 }}
             >
-              Where learning meets play, You can <br /> game your way to growth!
+              Where learning meets play, You can <br /> <span className="ml-[4rem]">game your way to growth!</span>
             </p>
           </div>
 
@@ -113,7 +113,7 @@ const LandingPage = () => {
             ].map((pillar, idx) => (
               <div
                 key={idx}
-                className="text-center mb-10 lg:mb-0 p-4 lg:p-6 rounded-lg w-full sm:w-[45%] lg:w-[20%] h-auto lg:h-[40vh] bg-white bg-opacity-60 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg"
+                className="text-center mb-10 lg:mb-0 p-4 lg:p-6 rounded-lg w-full sm:w-[45%] lg:w-[20%] h-auto lg:h-[50vh] bg-white bg-opacity-60 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg"
                 style={{ border: "2px solid #EB9721 " }}
               >
                 <img

@@ -139,6 +139,18 @@ const WordMatch = () => {
     }
   }, [gameStarted, questionIndex, isLoading, shuffledQuestions]);
 
+  useEffect(() => {
+    if (achievementVisible) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [achievementVisible]);
+
   const handleTimeout = () => {
     setModalMessage("Time's up! Try again.");
     setModalVisible(true);
@@ -193,33 +205,35 @@ const WordMatch = () => {
 
   const handleOptionClick = (word) => {
     if (word === currentWord) {
-      const updatedCorrectMatches = [...correctMatches, word];
-      setCorrectMatches(updatedCorrectMatches);
+      // Correct answer logic
       setCorrectAnswers(prev => prev + 1);
       setModalMessage("Correct match!");
+    } else {
+      // Wrong answer logic
+      setMissedAnswers(prev => prev + 1);
+      setModalMessage("Incorrect! Moving to next question...");
+    }
 
-      // Check if this was the last question
-      if (questionIndex === TOTAL_QUESTIONS - 1) {
-        setModalVisible(true);
-        setTimeout(() => {
-          setModalVisible(false);
-          setGameStarted(false);
-          setShowConfetti(true);
-          setAchievementVisible(true);
-          postGameResults();
-        }, 1000);
-        return; // Add return here to prevent further execution
-      }
+    // Check if this was the last question
+    if (questionIndex === TOTAL_QUESTIONS - 1) {
+      setModalVisible(true);
+      setTimeout(() => {
+        setModalVisible(false);
+        setGameStarted(false);
+        setShowConfetti(true);
+        setAchievementVisible(true);
+        postGameResults();
+      }, 1000);
+      return;
+    }
 
-      // Only proceed to next question if it wasn't the last one
+    // Show modal and move to next question regardless of correct/incorrect
+    setModalVisible(true);
+    setTimeout(() => {
+      setModalVisible(false);
       setQuestionIndex(prevIndex => prevIndex + 1);
       setTimer(10);
-      showModal();
-    } else {
-      setMissedAnswers(prev => prev + 1);
-      setModalMessage("Try again!");
-      showModal();
-    }
+    }, 1000);
   };
 
   const showModal = () => {

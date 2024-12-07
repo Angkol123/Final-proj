@@ -103,7 +103,7 @@ const FAQs = () => {
       <div
         className="bg-[#EBCEA8] h-auto py-10 mt-[-15.5vh] px-5 pt-24"
         style={{
-          clipPath: 'polygon(39% 0, 61% 0, 79% 2%, 91% 4%, 100% 7%, 100% 100%, 0 99%, 0 6%, 12% 3%, 21% 2%)',
+          clipPath: 'polygon(39% 0, 61% 0, 79% 2%, 91% 4%, 100% 7%, 100% 100%, 0 100%, 0 6%, 12% 3%, 21% 2%)',
         }}
       >
         {faqData.map((section, sectionIndex) => (
@@ -111,7 +111,7 @@ const FAQs = () => {
             <h2 className="text-2xl border border-[#EB9721] w-[40%] p-4 rounded-2xl mb-4">
               {section.section}
             </h2>
-            <div className="w-full h-auto mt-3 border-[#EB9721] border p-4">
+            <div className="w-full h-auto mt-3 border-[#EB9721] border rounded-2xl p-4">
               {section.questions.map((faq, index) => (
                 <div key={index} className="mb-4">
                   <h2 

@@ -21,11 +21,7 @@ export class GamesService {
     const games = await this.gamesRepository.find();
     return games.map((game) => ({
       ...game,
-      playDate: this.formatDate(new Date(game.playDate)), // Convert ISO string to Date object
+      playDate: format(new Date(game.playDate), 'yyyy-MM-dd') // Format date to only show YYYY-MM-DD
     }));
-  }
-
-  private formatDate(date: Date): string {
-    return format(date, 'MM/dd/yyyy hh:mma'); // Formats the date as MM/DD/YYYY hh:mmam/pm
   }
 }

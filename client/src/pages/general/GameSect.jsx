@@ -150,7 +150,7 @@ const GameSect = () => {
                   className="w-full h-40 object-cover rounded-md mb-4"
                 />
                 <h2 className="text-xl font-bold mb-2">{game.title}</h2>
-                <p className="text-gray-600 mb-4">{game.description}</p>
+                <p className=" mb-4">{game.description}</p>
                 <button
                   onClick={() => openModalForGame(game.game)}
                   className={`${
@@ -167,7 +167,7 @@ const GameSect = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-5 rounded-lg shadow-lg w-96 relative">
+          <div className="bg-[#FFE7C7] p-5 rounded-lg shadow-lg w-96 relative">
             <span
               onClick={closeModal}
               className="absolute top-1 right-2 cursor-pointer"

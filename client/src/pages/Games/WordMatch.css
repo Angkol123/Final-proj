@@ -69,3 +69,44 @@
     }
   }
   
+  /* Add these styles for modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: hidden; /* Prevent scrolling when modal is open */
+  }
+  
+  .modal-content {
+    background: #FFE7C7;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%; /* Limit width on smaller screens */
+    width: 400px; /* Default width */
+    max-height: 90vh; /* Prevent modal from being taller than viewport */
+    overflow-y: auto; /* Allow scrolling within modal if content is too tall */
+    position: relative;
+    margin: 1rem;
+  }
+  
+  /* Add to your existing animations */
+  body.modal-open {
+    overflow: hidden; /* Prevent body scrolling when modal is open */
+  }
+  
+  /* Ensure the confetti stays within bounds */
+  canvas {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  

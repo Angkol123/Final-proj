@@ -44,7 +44,7 @@ const Services = () => {
           <img src={list} alt="list" />
           <div className='w-[85%] h-full p-5'>
             <p >Why Choose Us</p>
-            <h1 className='text-center text-[1.5rem] text-[#5B3A29]'>We offer a unique educational experience tailored to young learners</h1>
+            <h2 className='text-center text-[1.5rem] text-[#5B3A29]'>We offer a unique educational experience tailored to young learners</h2>
             <p className='text-center mx-auto mt-4 w-[35vw]'>At EarlyLearners Hub Tutorial Services, we are dedicated to providing an exceptional learning environment that nurtures your child's growth and potential. Here’s why you should choose us</p>
           </div>
         </div>
@@ -101,7 +101,7 @@ const Services = () => {
           </div>
         </div>
         <div className='w-full h-[20vh] flex gap-9 justify-center items-center mt-5'>
-          <h1 className='w-[50vw] text-[1.8rem]'>Choose EarlyLearners Hub for an engaging, supportive, and effective learning journey that empowers your child to succeed!</h1>
+          <h2 className='w-[50vw] text-[1.8rem]'>Choose EarlyLearners Hub for an engaging, supportive, and effective learning journey that empowers your child to succeed!</h2>
           <img src={lets} alt="run"/>
         </div>
       </div>
