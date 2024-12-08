@@ -13,58 +13,51 @@ import Confetti from 'react-confetti';
 //background music
 import background from "../../Audio/gameloop.mp3";
 
-import cat from "../../images/Images/cat.jpg";
-import dog from "../../images/Images/dog.jpg";
-import apple from "../../images/Images/apple.jpg";
-import banana from "../../images/Images/banana.jpg";
-import fish from "../../images/Images/fish.jpg";
-import frog from "../../images/Images/frog.jpg";
-import car from "../../images/Images/car.jpg";
-import bird from "../../images/Images/bird.jpg";
-import flower from "../../images/Images/flower.jpg";
-import tree from "../../images/Images/tree.jpg";
-import sun from "../../images/Images/sun.jpg";
-import moon from "../../images/Images/moon.jpg";
-import bear from "../../images/Images/bear.jpg";
-import elephant from "../../images/Images/elephant.jpg";
-import giraffe from "../../images/Images/giraffe.jpg";
-// import horse from "../../images/Images/horse.png";
+import car from "../../images/games/cvc imgs/a-car.jpg";
+import cat from "../../images/games/cvc imgs/a-cat.jpg";
+import map from "../../images/games/cvc imgs/a-map.jpg";
+import pan from "../../images/games/cvc imgs/a-pan.jpg";
+import bed from "../../images/games/cvc imgs/e-bed.jpg";
+import net from "../../images/games/cvc imgs/e-net.jpg";
+import numberTen from "../../images/games/cvc imgs/e-numberTen.jpg";
+import wet from "../../images/games/cvc imgs/e-wet.jpg";
+import bin from "../../images/games/cvc imgs/i-bin.jpg";
+import pig from "../../images/games/cvc imgs/i-pig.jpg";
+import six from "../../images/games/cvc imgs/i-six.jpg";
+import zip from "../../images/games/cvc imgs/i-zip.avif";
+import box from "../../images/games/cvc imgs/o-box.jpg";
+import cop from "../../images/games/cvc imgs/o-cop.jpg";
+import dog from "../../images/games/cvc imgs/o-dog.jpg";
+import hot from "../../images/games/cvc imgs/o-hot.jpg";
+import bug from "../../images/games/cvc imgs/u-bug.jpg";
+import cup from "../../images/games/cvc imgs/u-cup.jpg";
+import hut from "../../images/games/cvc imgs/u-hut.jpg";
+import sun from "../../images/games/cvc imgs/u-sun.jpg";
 
 
 
 
 const wordsAndImages = [
-  { word: "Cat", image: cat },
-  { word: "Dog", image: dog },
-  { word: "Apple", image: apple },
-  {
-    word: "Banana",
-    image: banana,
-  },
-  { word: "Fish", image: fish },
-  { word: "Frog", image: frog },
   { word: "Car", image: car },
-  { word: "Bird", image: bird },
-  {
-    word: "Flower",
-    image: flower,
-  },
-  {
-    word: "Tree",
-    image:
-      tree,
-  },
+  { word: "Cat", image: cat },
+  { word: "Map", image: map },
+  { word: "Pan", image: pan },
+  { word: "Bed", image: bed },
+  { word: "Net", image: net },
+  { word: "Ten", image: numberTen },
+  { word: "Wet", image: wet },
+  { word: "Bin", image: bin },
+  { word: "Pig", image: pig },
+  { word: "Six", image: six },
+  { word: "Zip", image: zip },
+  { word: "Box", image: box },
+  { word: "Cop", image: cop },
+  { word: "Dog", image: dog },
+  { word: "Hot", image: hot },
+  { word: "Bug", image: bug },
+  { word: "Cup", image: cup },
+  { word: "Hut", image: hut },
   { word: "Sun", image: sun },
-  { word: "Moon", image: moon },
-  { word: "Bear", image: bear },
-  {
-    word: "Elephant",
-    image: elephant,
-  },
-  {
-    word: "Giraffe",
-    image: giraffe,
-  },
 ];
 
 const difficultyLevels = [

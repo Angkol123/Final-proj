@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 
@@ -166,37 +165,54 @@ const MathGame = () => {
 
   const postGameResults = async () => {
     try {
+      if (!playerName || !gameName) {
+        console.error('Missing player name or game name');
+        return;
+      }
+
       const gameData = {
         playerName: playerName,
         gameName: gameName,
-        difficulty: Level,
+        difficulty: Level || 'easy', // provide default if Level is null
         score: score,
         missedScore: missedScore
       };
 
       console.log('Sending game data:', gameData);
 
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/games`, gameData);
-      console.log('Game results posted successfully:', response.data);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/games`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(gameData)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to post game results: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      console.log('Game results posted successfully:', responseData);
       
+      // Show success toast
+      toast.success('Game results saved!', {
+        position: "top-center",
+        autoClose: 2000,
+      });
+
     } catch (error) {
       console.error('Error posting game results:', error);
       toast.error('Failed to save game results', {
         position: "top-center",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: 'error-toast'
       });
     }
   };
 
 
   const handleAnswer = async (selectedAnswer) => {
-    if (isLoading || answered) return; // Prevent multiple clicks
+    if (isLoading || answered) return;
     
     try {
       setIsLoading(true);
@@ -220,7 +236,6 @@ const MathGame = () => {
           setShowModal(true);
           backgroundMusic.pause();
           backgroundMusic.currentTime = 0;
-          postGameResults();
         }
         return newCount;
       });
@@ -300,8 +315,12 @@ const MathGame = () => {
     navigate("/GamesSection");
   };
 
-  const handlePlayAgain = () => {
+  const handlePlayAgain = async () => {
     console.log("Play Again clicked");
+    // First post the current game results
+    await postGameResults();
+    
+    // Then reset everything
     setLevel(null);
     setQuestion(null);
     setScore(0);
@@ -315,8 +334,12 @@ const MathGame = () => {
     backgroundMusic.play();
   };
 
-  const handleExit = () => {
+  const handleExit = async () => {
     console.log("Exit clicked");
+    // First post the game results
+    await postGameResults();
+    
+    // Then cleanup and navigate
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
     setShowModal(false);

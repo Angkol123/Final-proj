@@ -9,7 +9,7 @@ import img10 from "../../images/ey.png";
 import img17 from "../../images/light.png";
 import img18 from "../../images/gem.png";
 import Footer from "../../components/Footer";
-import mainImg from "../../images/teacher/hub.png";
+import mainImg from "../../images/faq-team/hub.png";
 import lets from "../../images/lets.png";
 
 const LandingPage = () => {
