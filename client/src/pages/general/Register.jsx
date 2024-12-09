@@ -117,7 +117,7 @@ const Register = () => {
         <img
           src={img13}
           alt="Curve"
-          className="absolute top-0 left-0 h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[74vh] w-full sm:w-[50vw] md:w-[63vh] lg:w-[70vh] opacity-70 z-0"
+          className="absolute top-0 left-0 h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[63.3vh] w-full sm:w-[50vw] md:w-[63vh] lg:w-[55vh] opacity-70 z-0"
 
         />
 

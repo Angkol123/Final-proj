@@ -40,12 +40,12 @@ const AboutUs = () => {
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-white bg-opacity-50"></div>
-        <h1          className="text-[#181C14] text-[5rem] font-semibold opacity-40 relative z-10"
+        {/* <div className="absolute inset-0"></div> */}
+        {/* <h1          className="text-[#181C14] text-[5rem] font-semibold opacity-40 relative z-10"
           style={{ textShadow: '2px 2px 0 rgba(235, 151, 33, 0.3), -2px -2px 0 rgba(235, 151, 33, 0.3), 2px -2px 0 rgba(235, 151, 33, 0.3), -2px 2px 0 rgba(235, 151, 33, 0.3)' }}
         >
           About Us
-        </h1>
+        </h1> */}
       </div>
 
      {/* Introduction Section */}

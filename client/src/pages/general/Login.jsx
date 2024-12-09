@@ -57,7 +57,7 @@ const SignIn = () => {
         <img
           src={img13}
           alt="Curve"
-          className="absolute top-0 right-0  md:h-[74vh] w-[35vh] md:w-[66vh] opacity-90 z-0"
+          className="absolute top-0 right-0 h-[40vh] w-[30vh] sm:h-[50vh] sm:w-[40vh] md:h-[64vh] md:w-[57vh] lg:h-[63.3vh] lg:w-[58vh] opacity-90 z-0"
         />
 
         {/* Left Section */}
@@ -131,7 +131,8 @@ const SignIn = () => {
           </p>
           <div className="text-center mt-12 sm:mt-16">
             <button
-              className="text-black py-1 sm:py-2 px-6 font-medium text-sm sm:text-base md:text-lg rounded-3xl border border-[#F49713] shadow-lg w-[70%] sm:w-[60%] md:w-[50%]"
+              className="text-black py-1 sm:py-2 px-6 font-medium text-sm sm:text-base md:text-lg rounded-3xl border border-[#F49713] shadow-lg 
+                md:w-[45%] w-[100%] sm:w-[100%] md:h-[10]"
               onClick={() => navigate("/register")}
             >
               Sign Up Now

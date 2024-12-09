@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 
@@ -22,6 +23,178 @@ import bgMusic from "../../Audio/letters/gameloop.mp3"
 // Create background music instance
 const backgroundMusic = new Audio(bgMusic);
 backgroundMusic.loop = true;
+
+const questionBank = {
+  addition: {
+    easy: [
+      { questionText: "2 + 3", correctAnswer: 5, options: [5, 4, 6, 3] },
+      { questionText: "1 + 4", correctAnswer: 5, options: [5, 3, 7, 2] },
+      { questionText: "3 + 1", correctAnswer: 4, options: [4, 5, 3, 6] },
+      { questionText: "2 + 2", correctAnswer: 4, options: [4, 3, 5, 6] },
+      { questionText: "0 + 3", correctAnswer: 3, options: [3, 2, 4, 1] },
+      { questionText: "1 + 1", correctAnswer: 2, options: [2, 3, 1, 4] },
+      { questionText: "4 + 0", correctAnswer: 4, options: [4, 3, 5, 2] },
+      { questionText: "2 + 1", correctAnswer: 3, options: [3, 4, 2, 5] },
+      { questionText: "3 + 2", correctAnswer: 5, options: [5, 4, 6, 3] },
+      { questionText: "1 + 3", correctAnswer: 4, options: [4, 5, 3, 2] }
+    ],
+    normal: [
+      { questionText: "5 + 7", correctAnswer: 12, options: [12, 10, 14, 11] },
+      { questionText: "6 + 8", correctAnswer: 14, options: [14, 13, 15, 16] },
+      { questionText: "9 + 4", correctAnswer: 13, options: [13, 12, 15, 11] },
+      { questionText: "7 + 7", correctAnswer: 14, options: [14, 16, 12, 15] },
+      { questionText: "8 + 6", correctAnswer: 14, options: [14, 13, 15, 12] },
+      { questionText: "5 + 9", correctAnswer: 14, options: [14, 13, 15, 16] },
+      { questionText: "8 + 8", correctAnswer: 16, options: [16, 15, 17, 14] },
+      { questionText: "7 + 6", correctAnswer: 13, options: [13, 12, 14, 15] },
+      { questionText: "9 + 9", correctAnswer: 18, options: [18, 17, 19, 16] },
+      { questionText: "6 + 7", correctAnswer: 13, options: [13, 12, 14, 11] },
+      { questionText: "8 + 5", correctAnswer: 13, options: [13, 12, 14, 15] },
+      { questionText: "7 + 8", correctAnswer: 15, options: [15, 14, 16, 13] },
+      { questionText: "9 + 6", correctAnswer: 15, options: [15, 14, 16, 17] },
+      { questionText: "8 + 7", correctAnswer: 15, options: [15, 14, 16, 13] },
+      { questionText: "6 + 9", correctAnswer: 15, options: [15, 14, 16, 17] }
+    ],
+    hard: [
+      { questionText: "12 + 15", correctAnswer: 27, options: [27, 25, 29, 26] },
+      { questionText: "18 + 14", correctAnswer: 32, options: [32, 30, 34, 31] },
+      { questionText: "16 + 17", correctAnswer: 33, options: [33, 31, 35, 32] },
+      { questionText: "19 + 13", correctAnswer: 32, options: [32, 30, 34, 31] },
+      { questionText: "15 + 16", correctAnswer: 31, options: [31, 29, 33, 30] },
+      { questionText: "17 + 15", correctAnswer: 32, options: [32, 31, 33, 30] },
+      { questionText: "14 + 19", correctAnswer: 33, options: [33, 32, 34, 31] },
+      { questionText: "16 + 16", correctAnswer: 32, options: [32, 31, 33, 30] },
+      { questionText: "18 + 15", correctAnswer: 33, options: [33, 32, 34, 31] },
+      { questionText: "17 + 17", correctAnswer: 34, options: [34, 33, 35, 32] },
+      { questionText: "19 + 15", correctAnswer: 34, options: [34, 33, 35, 32] },
+      { questionText: "16 + 19", correctAnswer: 35, options: [35, 34, 36, 33] },
+      { questionText: "18 + 17", correctAnswer: 35, options: [35, 34, 36, 33] },
+      { questionText: "19 + 16", correctAnswer: 35, options: [35, 34, 36, 33] },
+      { questionText: "17 + 19", correctAnswer: 36, options: [36, 35, 37, 34] },
+      { questionText: "18 + 18", correctAnswer: 36, options: [36, 35, 37, 34] },
+      { questionText: "19 + 17", correctAnswer: 36, options: [36, 35, 37, 34] },
+      { questionText: "18 + 19", correctAnswer: 37, options: [37, 36, 38, 35] },
+      { questionText: "19 + 18", correctAnswer: 37, options: [37, 36, 38, 35] },
+      { questionText: "19 + 19", correctAnswer: 38, options: [38, 37, 39, 36] }
+    ]
+  },
+  subtraction: {
+    easy: [
+      { questionText: "5 - 2", correctAnswer: 3, options: [3, 2, 4, 1] },
+      { questionText: "4 - 1", correctAnswer: 3, options: [3, 2, 4, 5] },
+      { questionText: "5 - 3", correctAnswer: 2, options: [2, 3, 1, 4] },
+      { questionText: "4 - 2", correctAnswer: 2, options: [2, 3, 1, 4] },
+      { questionText: "3 - 1", correctAnswer: 2, options: [2, 1, 3, 0] },
+      { questionText: "5 - 1", correctAnswer: 4, options: [4, 3, 5, 2] },
+      { questionText: "4 - 3", correctAnswer: 1, options: [1, 2, 0, 3] },
+      { questionText: "3 - 2", correctAnswer: 1, options: [1, 2, 0, 3] },
+      { questionText: "5 - 4", correctAnswer: 1, options: [1, 2, 0, 3] },
+      { questionText: "2 - 1", correctAnswer: 1, options: [1, 0, 2, 3] }
+    ],
+    normal: [
+      { questionText: "12 - 5", correctAnswer: 7, options: [7, 6, 8, 5] },
+      { questionText: "15 - 8", correctAnswer: 7, options: [7, 6, 9, 8] },
+      { questionText: "14 - 6", correctAnswer: 8, options: [8, 7, 9, 6] },
+      { questionText: "13 - 7", correctAnswer: 6, options: [6, 5, 7, 8] },
+      { questionText: "16 - 9", correctAnswer: 7, options: [7, 8, 6, 5] },
+      { questionText: "11 - 4", correctAnswer: 7, options: [7, 6, 8, 5] },
+      { questionText: "17 - 9", correctAnswer: 8, options: [8, 7, 9, 6] },
+      { questionText: "13 - 5", correctAnswer: 8, options: [8, 7, 9, 6] },
+      { questionText: "14 - 8", correctAnswer: 6, options: [6, 5, 7, 8] },
+      { questionText: "16 - 7", correctAnswer: 9, options: [9, 8, 10, 7] },
+      { questionText: "18 - 9", correctAnswer: 9, options: [9, 8, 10, 7] },
+      { questionText: "15 - 7", correctAnswer: 8, options: [8, 7, 9, 6] },
+      { questionText: "12 - 6", correctAnswer: 6, options: [6, 5, 7, 8] },
+      { questionText: "17 - 8", correctAnswer: 9, options: [9, 8, 10, 7] },
+      { questionText: "14 - 5", correctAnswer: 9, options: [9, 8, 10, 7] }
+    ],
+    hard: [
+      { questionText: "25 - 12", correctAnswer: 13, options: [13, 12, 14, 11] },
+      { questionText: "28 - 15", correctAnswer: 13, options: [13, 12, 14, 15] },
+      { questionText: "31 - 17", correctAnswer: 14, options: [14, 13, 15, 16] },
+      { questionText: "27 - 13", correctAnswer: 14, options: [14, 13, 15, 12] },
+      { questionText: "29 - 16", correctAnswer: 13, options: [13, 14, 12, 15] },
+      { questionText: "32 - 18", correctAnswer: 14, options: [14, 13, 15, 16] },
+      { questionText: "26 - 11", correctAnswer: 15, options: [15, 14, 16, 13] },
+      { questionText: "33 - 19", correctAnswer: 14, options: [14, 15, 13, 16] },
+      { questionText: "30 - 15", correctAnswer: 15, options: [15, 14, 16, 13] },
+      { questionText: "35 - 19", correctAnswer: 16, options: [16, 15, 17, 14] },
+      { questionText: "28 - 14", correctAnswer: 14, options: [14, 13, 15, 16] },
+      { questionText: "34 - 18", correctAnswer: 16, options: [16, 15, 17, 14] },
+      { questionText: "31 - 16", correctAnswer: 15, options: [15, 14, 16, 17] },
+      { questionText: "36 - 19", correctAnswer: 17, options: [17, 16, 18, 15] },
+      { questionText: "33 - 17", correctAnswer: 16, options: [16, 15, 17, 18] },
+      { questionText: "29 - 13", correctAnswer: 16, options: [16, 15, 17, 14] },
+      { questionText: "35 - 18", correctAnswer: 17, options: [17, 16, 18, 15] },
+      { questionText: "32 - 15", correctAnswer: 17, options: [17, 16, 18, 15] },
+      { questionText: "37 - 19", correctAnswer: 18, options: [18, 17, 19, 16] },
+      { questionText: "34 - 16", correctAnswer: 18, options: [18, 17, 19, 16] }
+    ]
+  },
+  multiplication: {
+    easy: [
+      { questionText: "2 × 1", correctAnswer: 2, options: [2, 3, 1, 4] },
+      { questionText: "1 × 3", correctAnswer: 3, options: [3, 2, 4, 1] },
+      { questionText: "2 × 2", correctAnswer: 4, options: [4, 3, 5, 2] },
+      { questionText: "3 × 1", correctAnswer: 3, options: [3, 4, 2, 5] },
+      { questionText: "1 × 4", correctAnswer: 4, options: [4, 3, 5, 2] },
+      { questionText: "2 × 3", correctAnswer: 6, options: [6, 5, 7, 4] },
+      { questionText: "3 × 2", correctAnswer: 6, options: [6, 5, 7, 4] },
+      { questionText: "4 × 1", correctAnswer: 4, options: [4, 5, 3, 6] },
+      { questionText: "1 × 5", correctAnswer: 5, options: [5, 4, 6, 3] },
+      { questionText: "2 × 4", correctAnswer: 8, options: [8, 7, 9, 6] }
+    ],
+    normal: [
+      { questionText: "4 × 3", correctAnswer: 12, options: [12, 11, 13, 10] },
+      { questionText: "3 × 5", correctAnswer: 15, options: [15, 14, 16, 12] },
+      { questionText: "4 × 4", correctAnswer: 16, options: [16, 15, 17, 14] },
+      { questionText: "5 × 3", correctAnswer: 15, options: [15, 14, 16, 13] },
+      { questionText: "3 × 6", correctAnswer: 18, options: [18, 17, 19, 16] },
+      { questionText: "4 × 5", correctAnswer: 20, options: [20, 19, 21, 18] },
+      { questionText: "6 × 3", correctAnswer: 18, options: [18, 17, 19, 16] },
+      { questionText: "5 × 4", correctAnswer: 20, options: [20, 19, 21, 18] },
+      { questionText: "3 × 7", correctAnswer: 21, options: [21, 20, 22, 19] },
+      { questionText: "4 × 6", correctAnswer: 24, options: [24, 23, 25, 22] },
+      { questionText: "7 × 3", correctAnswer: 21, options: [21, 20, 22, 19] },
+      { questionText: "5 × 5", correctAnswer: 25, options: [25, 24, 26, 23] },
+      { questionText: "6 × 4", correctAnswer: 24, options: [24, 23, 25, 22] },
+      { questionText: "3 × 8", correctAnswer: 24, options: [24, 23, 25, 22] },
+      { questionText: "4 × 7", correctAnswer: 28, options: [28, 27, 29, 26] }
+    ],
+    hard: [
+      { questionText: "6 × 6", correctAnswer: 36, options: [36, 35, 37, 34] },
+      { questionText: "7 × 5", correctAnswer: 35, options: [35, 34, 36, 33] },
+      { questionText: "8 × 4", correctAnswer: 32, options: [32, 31, 33, 30] },
+      { questionText: "6 × 7", correctAnswer: 42, options: [42, 41, 43, 40] },
+      { questionText: "5 × 9", correctAnswer: 45, options: [45, 44, 46, 43] },
+      { questionText: "8 × 6", correctAnswer: 48, options: [48, 47, 49, 46] },
+      { questionText: "7 × 7", correctAnswer: 49, options: [49, 48, 50, 47] },
+      { questionText: "9 × 6", correctAnswer: 54, options: [54, 53, 55, 52] },
+      { questionText: "8 × 7", correctAnswer: 56, options: [56, 55, 57, 54] },
+      { questionText: "6 × 9", correctAnswer: 54, options: [54, 53, 55, 52] },
+      { questionText: "7 × 8", correctAnswer: 56, options: [56, 55, 57, 54] },
+      { questionText: "9 × 7", correctAnswer: 63, options: [63, 62, 64, 61] },
+      { questionText: "8 × 8", correctAnswer: 64, options: [64, 63, 65, 62] },
+      { questionText: "7 × 9", correctAnswer: 63, options: [63, 62, 64, 61] },
+      { questionText: "9 × 8", correctAnswer: 72, options: [72, 71, 73, 70] },
+      { questionText: "8 × 9", correctAnswer: 72, options: [72, 71, 73, 70] },
+      { questionText: "9 × 9", correctAnswer: 81, options: [81, 80, 82, 79] },
+      { questionText: "7 × 6", correctAnswer: 42, options: [42, 41, 43, 40] },
+      { questionText: "8 × 5", correctAnswer: 40, options: [40, 39, 41, 38] },
+      { questionText: "6 × 8", correctAnswer: 48, options: [48, 47, 49, 46] }
+    ]
+  }
+};
+
+// Add this function to shuffle the questions
+const shuffleQuestions = (category, level) => {
+  const questions = [...questionBank[category][level]];
+  for (let i = questions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questions[i], questions[j]] = [questions[j], questions[i]];
+  }
+  return questions;
+};
 
 const MathGame = () => {
   const navigate = useNavigate();
@@ -67,75 +240,6 @@ const MathGame = () => {
   };
 
 
-  const generateQuestion = React.useCallback((cat, diff) => {
-    try {
-      let num1, num2;
-      if (diff === "easy") {
-        num1 = Math.floor(Math.random() * 5);
-        num2 = Math.floor(Math.random() * 5);
-      } else if (diff === "normal") {
-        num1 = Math.floor(Math.random() * 10);
-        num2 = Math.floor(Math.random() * 10);
-      } else {
-        num1 = Math.floor(Math.random() * 20);
-        num2 = Math.floor(Math.random() * 20);
-      }
-
-
-      let questionText, correctAnswer;
-
-
-      switch (cat) {
-        case "addition":
-          questionText = `${num1} + ${num2}`;
-          correctAnswer = num1 + num2;
-          break;
-        case "subtraction":
-          questionText = `${num1} - ${num2}`;
-          correctAnswer = num1 - num2;
-          break;
-        case "multiplication":
-          questionText = `${num1} × ${num2}`;
-          correctAnswer = num1 * num2;
-          break;
-        default:
-          return null;
-      }
-
-
-      const options = generateOptions(correctAnswer, Level);
-      return { questionText, correctAnswer, options };
-    } catch (error) {
-      console.error('Error generating question:', error);
-      return null;
-    }
-  }, [Level]);
-
-
-  const generateOptions = (correctAnswer, difficulty) => {
-    const options = new Set();
-    options.add(correctAnswer);
-
-
-    // Define a range based on difficulty for wrong answers
-    const range = difficulty === "easy" ? 2 : difficulty === "normal" ? 5 : 10;
-
-
-    // Generate wrong answers close to the correct answer
-    while (options.size < 4) {
-      const wrongAnswer =
-        correctAnswer + (Math.floor(Math.random() * (range * 2 + 1)) - range);
-      // Ensure the wrong answer is not the same as the correct answer and within reasonable bounds
-      if (wrongAnswer !== correctAnswer && wrongAnswer >= 0) {
-        options.add(wrongAnswer);
-      }
-    }
-
-
-    return Array.from(options).sort(() => Math.random() - 0.5);
-  };
-
-
   const handleCategorySelect = (cat) => {
     setCategory(cat);
     setLevel(null);
@@ -147,13 +251,11 @@ const MathGame = () => {
     try {
       setIsLoading(true);
       setLevel(diff);
-      const newQuestion = generateQuestion(category, diff);
-      if (newQuestion) {
-        setQuestion(newQuestion);
-        setQuestionsCount(0);
-      } else {
-        toast.error('Error generating question. Please try again.');
-      }
+      
+      // Get shuffled questions for this category and difficulty
+      const shuffledQuestions = shuffleQuestions(category, diff);
+      setQuestion(shuffledQuestions[0]); // Use first question from shuffled array
+      setQuestionsCount(0);
     } catch (error) {
       console.error('Error selecting difficulty:', error);
       toast.error('Something went wrong. Please try again.');
@@ -165,54 +267,37 @@ const MathGame = () => {
 
   const postGameResults = async () => {
     try {
-      if (!playerName || !gameName) {
-        console.error('Missing player name or game name');
-        return;
-      }
-
       const gameData = {
         playerName: playerName,
         gameName: gameName,
-        difficulty: Level || 'easy', // provide default if Level is null
+        difficulty: Level,
         score: score,
         missedScore: missedScore
       };
 
       console.log('Sending game data:', gameData);
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/games`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(gameData)
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to post game results: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      console.log('Game results posted successfully:', responseData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/games`, gameData);
+      console.log('Game results posted successfully:', response.data);
       
-      // Show success toast
-      toast.success('Game results saved!', {
-        position: "top-center",
-        autoClose: 2000,
-      });
-
     } catch (error) {
       console.error('Error posting game results:', error);
       toast.error('Failed to save game results', {
         position: "top-center",
         autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: 'error-toast'
       });
     }
   };
 
 
   const handleAnswer = async (selectedAnswer) => {
-    if (isLoading || answered) return;
+    if (isLoading || answered) return; // Prevent multiple clicks
     
     try {
       setIsLoading(true);
@@ -236,6 +321,7 @@ const MathGame = () => {
           setShowModal(true);
           backgroundMusic.pause();
           backgroundMusic.currentTime = 0;
+          postGameResults();
         }
         return newCount;
       });
@@ -249,14 +335,28 @@ const MathGame = () => {
 
 
   const handleNextQuestion = () => {
-    if (questionsCount + 1 < questionLimit[Level]) {
-      setQuestion(generateQuestion(category, Level));
-      setAnswered(false);
-    } else {
-      setShowModal(true);
+    if (isLoading) return;
+    
+    try {
+      setIsLoading(true);
+      
+      if (questionsCount + 1 < questionLimit[Level]) {
+        const shuffledQuestions = shuffleQuestions(category, Level);
+        const nextQuestion = shuffledQuestions[questionsCount + 1];
+        
+        setQuestion(nextQuestion);
+        setAnswered(false);
+        setAnimate(false);
+        setTimeout(() => setAnimate(true), 10);
+      } else {
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error('Error getting next question:', error);
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
-    setAnimate(false);
-    setTimeout(() => setAnimate(true), 10); // Brief delay to restart animation
   };
 
 
@@ -315,12 +415,8 @@ const MathGame = () => {
     navigate("/GamesSection");
   };
 
-  const handlePlayAgain = async () => {
+  const handlePlayAgain = () => {
     console.log("Play Again clicked");
-    // First post the current game results
-    await postGameResults();
-    
-    // Then reset everything
     setLevel(null);
     setQuestion(null);
     setScore(0);
@@ -334,12 +430,8 @@ const MathGame = () => {
     backgroundMusic.play();
   };
 
-  const handleExit = async () => {
+  const handleExit = () => {
     console.log("Exit clicked");
-    // First post the game results
-    await postGameResults();
-    
-    // Then cleanup and navigate
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
     setShowModal(false);
@@ -568,13 +660,16 @@ const MathGame = () => {
 
 
                   {answered && !showModal && (
-                    <div className=" relative w-[500px] h-[90px] flex justify-center items-center ">
+                    <div className="relative w-[500px] h-[90px] flex justify-center items-center">
                       <button
-                        className="bg-[#FFC87A] text-[#7E4F0E] text-lg font-bold py-3 px-6 rounded-lg shadow-lg hover: transition duration-300 mt-8 p-4 md:ml-[13rem] "
+                        className={`bg-[#FFC87A] text-[#7E4F0E] text-lg font-bold py-3 px-6 rounded-lg shadow-lg 
+                          hover:bg-[#FFD59E] transition duration-300 mt-8 p-4 md:ml-[13rem]
+                          ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                         style={{ filter: "brightness(100%)" }}
                         onClick={handleNextQuestion}
+                        disabled={isLoading}
                       >
-                        Next Question
+                        {isLoading ? 'Loading...' : 'Next Question'}
                       </button>
                     </div>
                   )}

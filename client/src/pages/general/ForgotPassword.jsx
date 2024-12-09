@@ -41,12 +41,12 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="min-h-[91vh] flex items-center justify-center bg-[#F0BC78] px-4 sm:px-6 lg:px-8 font-['Poppins']">
+        <div className="min-h-[91vh] flex items-center justify-center bg-[#ebcea8] px-4 sm:px-6 lg:px-8 font-['Poppins']">
             <img
                 src={arow}
                 alt="Back to Login"
                 onClick={() => navigate('/login')}
-                className="absolute left-0 top-14 cursor-pointer w-40 h-30 z-20"
+                className="absolute left-0 lg:mt-[1rem] top-14 sm:top-16 md:top-20 cursor-pointer w-24 sm:w-32 md:w-36 lg:w-40 h-auto z-20 hover:scale-105 transition-transform"
             />
             <div className="max-w-md w-full space-y-8 bg-[#FDDDB1] rounded-3xl p-10">
                 <div className="text-center flex flex-col items-center justify-center">
