@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Delete, Param, HttpCode } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { CreateGameDto } from '../Dto/create-game.dto';
 import { Game } from '../entities/game.entity';
@@ -15,5 +15,17 @@ export class GamesController {
   @Get()
   async findAll(): Promise<Game[]> {
     return this.gamesService.findAll(); // Retrieves all game records
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  async delete(@Param('id') id: number): Promise<void> {
+    return this.gamesService.delete(id);
+  }
+
+  @Delete()
+  @HttpCode(204)
+  async batchDelete(@Body() ids: number[]): Promise<void> {
+    return this.gamesService.batchDelete(ids);
   }
 }

@@ -24,4 +24,12 @@ export class GamesService {
       playDate: format(new Date(game.playDate), 'yyyy-MM-dd') // Format date to only show YYYY-MM-DD
     }));
   }
+
+  async delete(id: number): Promise<void> {
+    await this.gamesRepository.delete(id);
+  }
+
+  async batchDelete(ids: number[]): Promise<void> {
+    await this.gamesRepository.delete(ids);
+  }
 }

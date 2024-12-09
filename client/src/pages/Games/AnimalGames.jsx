@@ -395,7 +395,7 @@ const AnimalGame = () => {
                         .map((letter, index) => (
                           <div
                             key={index}
-                            className="border-2 border-[#7E4F0E] rounded-lg bg-[#FAD9AB] p-4 m-1 w-12 h-12 flex items-center justify-center text-purple-600 text-3xl font-bold"
+                            className="border-2 border-[#7E4F0E] rounded-lg bg-[#FAD9AB] p-4 m-1 w-12 h-12 flex items-center justify-center text-[#7E4F0E]  text-3xl font-bold"
                           >
                             {letter}
                           </div>

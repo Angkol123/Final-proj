@@ -478,7 +478,7 @@ const MathGame = () => {
                 style={{
                   padding: '16px',
                   width: '40%',
-                  height: '6vh',
+                  height: '7vh',
                 }}
               >
                 Play Again
@@ -490,7 +490,7 @@ const MathGame = () => {
                 style={{
                   padding: '16px',
                   width: '40%',
-                  height: '6vh',
+                  height: '7vh',
                 }}
               >
                 Exit
