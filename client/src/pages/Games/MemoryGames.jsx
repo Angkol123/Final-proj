@@ -100,10 +100,8 @@ const MemoryGame = () => {
 
   const [isGameActive, setIsGameActive] = useState(false);
   const [score, setScore] = useState(0);
-  const [timeLimit, setTimeLimit] = useState(0);
   const [gameEnded, setGameEnded] = useState(false);
   const [missionStatus, setMissionStatus] = useState("Ongoing"); // Initial mission status
-  const [timeLeft, setTimeLeft] = useState(40); // Example initial time
 
   const [playerName, setPlayerName] = useState("");
   const [gameName, setGameName] = useState("");
@@ -131,13 +129,13 @@ const MemoryGame = () => {
   }, []);
 
   useEffect(() => {
-    if (timeLeft > 0 && !gameOver) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (timeLeft === 0) {
+    if (timer > 0 && !gameOver && isGameActive) {
+      const countdown = setTimeout(() => setTimer(timer - 1), 1000);
+      return () => clearTimeout(countdown);
+    } else if (timer === 0 && isGameActive) {
       handleTimeUp();
     }
-  }, [timeLeft, gameOver]);
+  }, [timer, gameOver, isGameActive]);
   // Simulate loading before showing the play button
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -154,39 +152,11 @@ const MemoryGame = () => {
     if (timer === 0 && flipCount) endGame();
   }, [flipCount, timer, gameOver]);
 
-  useEffect(() => {
-    const gameFinishedSuccessfully = true; // Replace with actual game logic
-    if (gameFinishedSuccessfully) {
-      onGameComplete();
-    } else {
-      onTimerEnd();
-    }
-  }, []); // Add dependencies to monitor actual game state or timer
-
-  useEffect(() => {
-    setTimeLeft(getInitialTime(difficulty));
-  }, [difficulty]);
-
-  const getInitialTime = (level) => {
-    switch (level) {
-      case "easy":
-        return 40;
-      case "normal":
-        return 30;
-      case "hard":
-        return 20;
-      default:
-        return 40;
-    }
-  };
-
   const handleTimeUp = () => {
     setGameOver(true);
     setMissionStatus("Failed");
     setShowConfetti(false);
-    clearInterval(intervalId);
-    setTimer(timer);
-    setTimeLeft(timeLeft);
+    setIsGameActive(false);
     
     // Post game results when time is up
     postGameResults();
@@ -195,7 +165,7 @@ const MemoryGame = () => {
   const startGame = (level, levelName) => {
     setIsGameActive(true);
     setSelectedLevel(levelName);
-    setShowLevelSelection(false); // Hide level selection
+    setShowLevelSelection(false);
     setDifficulty(levelName);
     setShowStats(true);
     
@@ -210,9 +180,8 @@ const MemoryGame = () => {
     // Generate new cards
     generateCards(level);
     
-    // Set time limit based on level
+    // Set single timer based on level
     const timeMapping = { easy: 40, normal: 30, hard: 20 };
-    setTimeLimit(timeMapping[levelName]);
     setTimer(timeMapping[levelName]);
     
     // Start background music
@@ -268,7 +237,6 @@ const MemoryGame = () => {
 
   const resetGame = () => {
     // Reset game states but keep difficulty
-    setTimeLeft(getInitialTime(difficulty));
     setMissionStatus("Ongoing");
     setGameOver(false);
     setCards([]);
@@ -380,7 +348,6 @@ const MemoryGame = () => {
       setTimer(timer);
       setGameOver(true);
       setGameEnded(true);
-      setTimeLeft(timeLeft);
 
       const finalScore = calculateScore();
       setShowConfetti(true);
@@ -405,7 +372,7 @@ const MemoryGame = () => {
   const postGameResults = async () => {
     try {
       // Only post if there's a score to report
-      if (gameEnded || timeLeft === 0) {
+      if (gameEnded || timer === 0) {
         const gameData = {
           playerName: playerName,
           gameName: gameName,
@@ -440,6 +407,16 @@ const MemoryGame = () => {
       backgroundMusic.currentTime = 0;
     };
   }, []);
+
+  // Add this function near the other utility functions
+  const getInitialTime = (difficulty) => {
+    const timeMapping = {
+      easy: 40,
+      normal: 30,
+      hard: 20
+    };
+    return timeMapping[difficulty];
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-yellow-300 to-blue-400  overflow-auto h-[50vh]">
@@ -534,25 +511,14 @@ const MemoryGame = () => {
             >
               {/* <div>Time Left: {timer} seconds </div> */}
 
-              <div className="timer-bar bg-gray-200 rounded-full h-6 mb-6 w-[100%] flex- justify-center">
+              <div className="timer-bar bg-gray-200 rounded-full h-6 mb-6">
                 <div
-                  className="bg-gradient-to-r from-green-400 to-blue-500 h-full rounded-full transition-all duration-1000"
+                  className="bg-gradient-to-r from-green-400 to-blue-500 h-full rounded-full transition-all duration-1000 flex justify-center items-center text-white font-bold border sm:border-[#FF5733] md:border-[#EB9721] lg:border-[#FFD700] sm:text-sm md:text-base lg:text-lg sm:h-5 md:h-6 lg:h-6"
                   style={{
-                    width: `${
-                      (timer / difficultyLevels[difficulty].time) * 100
-                    }%`,
+                    width: `${(timer / getInitialTime(difficulty)) * 100}%`,
                   }}
                 >
-                  <div className="timer-bar bg-gray-200 rounded-full h-6 mb-6">
-                    <div
-                      className="bg-gradient-to-r from-green-400 to-blue-500 h-full rounded-full transition-all duration-1000 flex justify-center items-center text-white font-bold border sm:border-[#FF5733] md:border-[#EB9721] lg:border-[#FFD700] sm:text-sm md:text-base lg:text-lg sm:h-5 md:h-6 lg:h-6"
-                      style={{
-                        width: `${(timer / timeLimit) * 100}%`, // Adjust the width of the bar based on time left
-                      }}
-                    >
-                      {timer} {/* Display only the timer number */}
-                    </div>
-                  </div>
+                  {timer}
                 </div>
               </div>
             </div>
