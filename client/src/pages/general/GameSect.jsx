@@ -176,7 +176,7 @@ const GameSect = () => {
             </span>
             <div className="p-[2%]">
               <h2 className="text-xl font-bold mb-4 p-[1%]">
-                Enter Student's Name
+                Enter Tutees Name
               </h2>
             </div>
             <input
@@ -184,7 +184,7 @@ const GameSect = () => {
               value={childName}
               onChange={(e) => setChildName(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded mb-4"
-              placeholder="Student's Name"
+              placeholder="Tutees Name"
             />
             <button
               onClick={handleSubmit}
